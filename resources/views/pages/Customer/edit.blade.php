@@ -26,10 +26,10 @@
                         </div>
                         <div class="col-sm-12" style="margin-top: 15px;">
                     <div class="mb-3">
-                        <label for="foto_ktp" class="form-label">Foto KTP</label>
+                        <label for="foto_ktp" class="form-label">Foto KTP / PASSPORT</label>
                         @if($data->foto_ktp)
                             <div class="mb-2">
-                                <img src="{{ asset('foto_ktp_customer/' . $data->foto_ktp) }}" alt="Gambar saat ini" class="img-thumbnail" style="max-height: 200px;">
+                                <img src="{{ Storage::url($data->foto_ktp) }}" alt="Gambar saat ini" class="img-thumbnail" style="max-height: 200px;">
                                 <p class="form-text">Gambar saat ini. Pilih file baru di bawah untuk mengganti.</p>
                             </div>
                         @endif

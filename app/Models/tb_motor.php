@@ -8,7 +8,7 @@ class tb_motor extends Model
 {
     protected $table = 'tb_motor';
     protected $primaryKey = 'id_motor';
-    protected $fillable = ['nama_motor', 'deskripsi', 'harga', 'kategori_id', 'cc_mesin', 'tag_tambahan', 'status', 'gambar_motor', 'tahun'];
+    protected $fillable = ['nama_motor', 'plat_nomor', 'deskripsi', 'harga', 'kategori_id', 'cc_mesin', 'km_terakhir', 'tag_tambahan', 'status', 'gambar_motor', 'tahun'];
     protected $guarded = ['id_motor'];
 
     // Mendefinisikan relasi one-to-many dengan tb_kategori

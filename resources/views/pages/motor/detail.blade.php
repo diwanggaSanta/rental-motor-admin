@@ -54,7 +54,7 @@
                                 @endif
 
                                 @if($data_motor->gambar_motor)
-                                    <img src="{{ asset('gambar_motor/' . $data_motor->gambar_motor) }}" class="img-fluid rounded"
+                                    <img src="{{ Storage::url($data_motor->gambar_motor) }}" class="img-fluid rounded"
                                         alt="{{ $data_motor->nama_motor }}"
                                         style="max-height: 350px; object-fit: contain; width: 100%;">
                                 @else
@@ -153,14 +153,32 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    {{-- Plat Nomor --}}
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-warning bg-opacity-10 p-2 me-3 d-flex align-items-center justify-content-center"
+                                                style="width: 40px; height: 40px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                    fill="currentColor" class="bi bi-card-heading text-warning" viewBox="0 0 16 16">
+                                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                                                    <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted d-block">Plat Nomor</small>
+                                                <span class="fw-semibold">{{ $data_motor->plat_nomor ?? '-' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {{-- Chip: CC & Tag Tambahan (seperti di foto referensi) --}}
+                                {{-- Chip: KM Terakhir & Tag Tambahan (seperti di foto referensi) --}}
                                 <div class="d-flex flex-wrap gap-2 mb-3">
-                                    @if($data_motor->cc_mesin)
+                                    @if($data_motor->km_terakhir)
                                         <span class="badge rounded-pill border border-secondary text-secondary fw-normal px-3 py-2"
                                             style="font-size: 0.8rem; background: transparent;">
-                                            {{ $data_motor->cc_mesin }}
+                                            {{ $data_motor->km_terakhir }}
                                         </span>
                                     @endif
                                     @if($data_motor->tag_tambahan)

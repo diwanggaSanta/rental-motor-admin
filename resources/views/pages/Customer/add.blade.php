@@ -24,7 +24,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="foto_ktp" class="form-label">Foto KTP</label>
+                            <label for="foto_ktp" class="form-label">Foto KTP / PASSPORT</label>
                             <input type="file" name="foto_ktp" class="form-control">
                             @error('foto_ktp')
                             <div class="form-text text-danger">{{ $message }}</div>

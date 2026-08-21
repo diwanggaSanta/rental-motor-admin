@@ -15,7 +15,7 @@
           <th scope="col" class="bg-primary text-white">Nama</th>
           <th scope="col" class="bg-primary text-white">Alamat</th>
           <th scope="col" class="bg-primary text-white">No Telepon</th>
-          <th scope="col" class="bg-primary text-white">Foto KTP</th>
+          <th scope="col" class="bg-primary text-white">Foto KTP / PASSPORT</th>
           <th scope="col" class="bg-primary text-white">Aksi</th>
         </tr>
       </thead>
@@ -28,7 +28,7 @@
           <td>{{ $item->no_telp }}</td>
           <td>
             @if($item->foto_ktp)
-              <img src="{{ asset('foto_ktp_customer/' . $item->foto_ktp) }}" alt="Foto KTP" style="width: 80px; height: auto; border-radius: 4px; cursor: pointer;" onclick="window.open(this.src)">
+              <img src="{{ Storage::url($item->foto_ktp) }}" alt="Foto KTP" style="width: 80px; height: auto; border-radius: 4px; cursor: pointer;" onclick="window.open(this.src)">
             @else
               -
             @endif

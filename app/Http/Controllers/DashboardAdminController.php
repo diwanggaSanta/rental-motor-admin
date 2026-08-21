@@ -23,7 +23,7 @@ class DashboardAdminController extends Controller
 
         // 2. Ambil 5 Transaksi Terakhir untuk tabel aktivitas
         // Asumsi relasi 'customer' dan 'motor' sudah ada di model tb_transaksi
-        $transaksiTerbaru = tb_transaksi::orderBy('created_at', 'desc')
+        $transaksiTerbaru = tb_transaksi::with('motor')->orderBy('created_at', 'desc')
                                         ->take(5)
                                         ->get();
 

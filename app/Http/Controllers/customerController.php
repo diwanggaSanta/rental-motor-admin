@@ -3,39 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Models\tb_customer;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage; // Ditambahkan untuk akses S3
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 
-
 class customerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $data_customer = tb_customer::get();
         return view('pages.Customer.show', compact('data_customer'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.Customer.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // validasi data harus di isi
-        //aturan validasi dapat di lihat di website laravel, dengan keyword "available validation rules"
         $request->validate([
             'nama' => 'required',
             'no_telp' => 'required|numeric',
@@ -51,51 +38,34 @@ class customerController extends Controller
             'foto_ktp.max' => 'Ukuran gambar maksimal 2MB',
         ]);
 
-        // Handle upload gambar
-        $namaGambar = null;
+        // Handle upload gambar langsung ke Supabase S3
+        $pathKtp = null;
         if ($request->hasFile('foto_ktp')) {
-            $ekstensi = $request->file('foto_ktp')->getClientOriginalExtension();
-            $namaGambar = Str::random(30) . '.' . $ekstensi;
-            $request->file('foto_ktp')->move(public_path('foto_ktp_customer'), $namaGambar);
+            $pathKtp = $request->file('foto_ktp')->store('foto_ktp_customer', 's3');
         }
 
-        //query untuk mengambil data yang di isi dari show.blade dengna menggunakan name dari kolom pada tampilan add, name="nama_produk_"
         tb_customer::create([
-            'user_id' => null, // Dikosongkan karena pelanggan offline tidak punya akun
+            'user_id' => null,
             'nama' => $request->nama,
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat,
-            'foto_ktp' => $namaGambar,
+            'foto_ktp' => $pathKtp, // Menyimpan path dari S3
         ]);
 
-        // Hapus cache data_customer karena data berubah
         Cache::forget('data_customer');
-
-        //untuk menampilkan kembali ke halaman produk setalah data ditambah
         return redirect('/customer')->with('pesan', 'Data berhasil ditambahkan');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id_customer)
     {
-
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id_customer)
     {
         $data = tb_customer::findOrFail($id_customer);
         return view('pages.customer.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -119,38 +89,36 @@ class customerController extends Controller
             'alamat' => $request->alamat,
         ];
 
-        // Handle upload gambar baru (jika ada)
+        // Handle upload gambar baru (jika ada) ke S3
         if ($request->hasFile('foto_ktp')) {
-            // Hapus gambar lama jika ada
             $produkLama = tb_customer::findOrFail($id);
-            if ($produkLama->foto_ktp && File::exists(public_path('foto_ktp_customer/' . $produkLama->foto_ktp))) {
-                File::delete(public_path('foto_ktp_customer/' . $produkLama->foto_ktp));
+            
+            // Hapus gambar lama di Supabase S3
+            if ($produkLama->foto_ktp) {
+                Storage::disk('s3')->delete($produkLama->foto_ktp);
             }
 
-            // Simpan gambar baru dengan nama acak
-            $ekstensi = $request->file('foto_ktp')->getClientOriginalExtension();
-            $namaGambar = Str::random(30) . '.' . $ekstensi;
-            $request->file('foto_ktp')->move(public_path('foto_ktp_customer'), $namaGambar);
-            $dataUpdate['foto_ktp'] = $namaGambar;
+            // Simpan gambar baru ke S3
+            $pathKtp = $request->file('foto_ktp')->store('foto_ktp_customer', 's3');
+            $dataUpdate['foto_ktp'] = $pathKtp;
         }
 
         tb_customer::where('id_customer', $id)->update($dataUpdate);
-
-        // Hapus cache data_customer karena data berubah
         Cache::forget('data_customer');
 
         return redirect('/customer')->with('pesan', 'Data berhasil diupdate');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id_customer)
     {
         $customer = tb_customer::findOrFail($id_customer);
+        
+        // Hapus file dari Supabase S3 sebelum data dihapus
+        if ($customer->foto_ktp) {
+            Storage::disk('s3')->delete($customer->foto_ktp);
+        }
+        
         $customer->delete();
-
-        // Hapus cache data_customer karena data berubah
         Cache::forget('data_customer');
 
         return redirect('/customer')->with('pesan', 'Data berhasil dihapus');

@@ -8,11 +8,10 @@
                 @method('PUT')
                 @csrf
                 <div class="mb-3">
-                    <label for="kategori_badge" class="form-label">Nama Badge</label>
-                    <input type="text" name="kategori_badge" id="kategori_badge" class="form-control"
-                        value="{{ old('kategori_badge', $data->kategori_badge) }}">
-                    <div class="form-text">Badge ini akan muncul sebagai pilihan di form tambah/edit motor.</div>
-                    @error('kategori_badge')
+                    <label for="nama_kategori" class="form-label">Nama Kategori</label>
+                    <input type="text" name="nama_kategori" id="nama_kategori" class="form-control"
+                        value="{{ old('nama_kategori', $data->nama_kategori) }}">
+                    @error('nama_kategori')
                         <div class="form-text text-danger">{{ $message }}</div>
                     @enderror
                 </div>

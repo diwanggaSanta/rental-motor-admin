@@ -9,12 +9,62 @@
                 @method('PUT')
 
                 <div class="row">
-                    {{-- Kolom Kiri: Nama Motor, Tahun, Harga, CC Mesin --}}
+                    {{-- Kolom Kiri: Nama Motor, Plat Nomor, Tahun, Harga, CC Mesin, KM Terakhir --}}
                     <div class="col-sm-6">
                         <div class="mb-3">
                             <label for="nama_motor" class="form-label">Nama Motor</label>
-                            <input type="text" name="nama_motor" class="form-control" value="{{ old('nama_motor', $data->nama_motor) }}">
+                            <input type="text" name="nama_motor" class="form-control"
+                                value="{{ old('nama_motor', $data->nama_motor) }}">
                             @error('nama_motor')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="kategori_id" class="form-label">Kategori Motor</label>
+                            <select class="form-select" name="kategori_id" id="kategori_id">
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach($data_kategori as $kategori)
+                                    <option value="{{ $kategori->id_kategori }}" {{ old('kategori_id', $data->kategori_id) == $kategori->id_kategori ? 'selected' : '' }}>
+                                        {{ $kategori->nama_kategori }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('kategori_id')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="warna" class="form-label">Warna Motor</label>
+                            <select name="warna" class="form-select" required>
+                                <option value="">-- Pilih Warna --</option>
+                                <option value="White" {{ old('warna', $data->warna) == 'White' ? 'selected' : '' }}>White
+                                </option>
+                                <option value="Black" {{ old('warna', $data->warna) == 'Black' ? 'selected' : '' }}>Black
+                                </option>
+                                <option value="Red" {{ old('warna', $data->warna) == 'Red' ? 'selected' : '' }}>Red
+                                </option>
+                                <option value="Blue" {{ old('warna', $data->warna) == 'Blue' ? 'selected' : '' }}>Blue
+                                </option>
+                                <option value="Grey" {{ old('warna', $data->warna) == 'Grey' ? 'selected' : '' }}>Grey
+                                </option>
+                                <option value="Silver" {{ old('warna', $data->warna) == 'Silver' ? 'selected' : '' }}>Silver
+                                </option>
+                                <option value="Gold" {{ old('warna', $data->warna) == 'Gold' ? 'selected' : '' }}>Gold
+                                </option>
+                            </select>
+                            @error('warna')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="plat_nomor" class="form-label">Plat Nomor</label>
+                            <input type="text" name="plat_nomor" class="form-control" placeholder="Contoh: B 1234 ABC"
+                                value="{{ old('plat_nomor', $data->plat_nomor) }}">
+                            <div class="form-text">Nomor plat kendaraan, contoh: B 1234 ABC</div>
+                            @error('plat_nomor')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -28,6 +78,30 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="cc_mesin" class="form-label">CC Mesin</label>
+                            <input type="text" name="cc_mesin" class="form-control" placeholder="Contoh: 160cc"
+                                value="{{ old('cc_mesin', $data->cc_mesin) }}">
+                            <div class="form-text">Kapasitas mesin motor, contoh: 150cc, 160cc, 250cc</div>
+                            @error('cc_mesin')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                    </div>
+
+                    {{-- Kolom Kanan: Kategori Badge, Tag Tambahan, Status, Gambar --}}
+                    <div class="col-sm-6">
+
+                        <div class="mb-3">
+                            <label for="km_terakhir" class="form-label">KM Terakhir</label>
+                            <input type="number" name="km_terakhir" class="form-control" placeholder="Contoh: 10000 KM"
+                                value="{{ old('km_terakhir', $data->km_terakhir) }}">
+                            @error('km_terakhir')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="harga" class="form-label">Harga Sewa (Rp)</label>
                             <input type="number" name="harga" class="form-control" value="{{ old('harga', $data->harga) }}">
                             @error('harga')
@@ -36,49 +110,14 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="cc_mesin" class="form-label">CC Mesin</label>
-                            <input type="text" name="cc_mesin" class="form-control" placeholder="Contoh: 160cc" value="{{ old('cc_mesin', $data->cc_mesin) }}">
-                            <div class="form-text">Kapasitas mesin motor, contoh: 150cc, 160cc, 250cc</div>
-                            @error('cc_mesin')
-                                <div class="form-text text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- Kolom Kanan: Kategori Badge, Tag Tambahan, Status, Gambar --}}
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="kategori_badge" class="form-label">Kategori Badge</label>
-                            <select class="form-select" name="kategori_badge" id="kategori_badge">
-                                <option value="">-- Pilih Badge Kategori --</option>
-                                @foreach($data_kategori as $kategori)
-                                    <option value="{{ $kategori->kategori_badge }}"
-                                        {{ old('kategori_badge', $data->kategori_badge) == $kategori->kategori_badge ? 'selected' : '' }}>
-                                        {{ $kategori->kategori_badge }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <div class="form-text">Badge ini akan tampil di kartu motor. Kelola daftar badge di menu <a href="/kategori" target="_blank">Kategori</a>.</div>
-                            @error('kategori_badge')
-                                <div class="form-text text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="tag_tambahan" class="form-label">Tag Tambahan</label>
-                            <input type="text" name="tag_tambahan" class="form-control" placeholder="Contoh: Adventure" value="{{ old('tag_tambahan', $data->tag_tambahan) }}">
-                            <div class="form-text">Tag ekstra yang tampil sebagai chip di kartu motor, contoh: Adventure, Premium, Sport.</div>
-                            @error('tag_tambahan')
-                                <div class="form-text text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
                             <label for="status" class="form-label">Status Motor</label>
                             <select class="form-select" name="status" id="status">
-                                <option value="tersedia" {{ old('status', $data->status) == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
-                                <option value="disewa" {{ old('status', $data->status) == 'disewa' ? 'selected' : '' }}>Disewa</option>
-                                <option value="servis" {{ old('status', $data->status) == 'servis' ? 'selected' : '' }}>Servis / Maintenance</option>
+                                <option value="tersedia" {{ old('status', $data->status) == 'tersedia' ? 'selected' : '' }}>
+                                    Tersedia</option>
+                                <option value="disewa" {{ old('status', $data->status) == 'disewa' ? 'selected' : '' }}>Disewa
+                                </option>
+                                <option value="servis" {{ old('status', $data->status) == 'servis' ? 'selected' : '' }}>Servis
+                                    / Maintenance</option>
                             </select>
                             @error('status')
                                 <div class="form-text text-danger">{{ $message }}</div>
@@ -89,11 +128,13 @@
                             <label for="gambar_motor" class="form-label">Gambar Motor</label>
                             @if($data->gambar_motor)
                                 <div class="mb-2">
-                                    <img src="{{ asset('gambar_motor/' . $data->gambar_motor) }}" alt="Gambar Motor" style="width: 100px; height: auto; border-radius: 5px;">
+                                    <img src="{{ Storage::url($data->gambar_motor) }}" alt="Gambar Motor"
+                                        style="width: 100px; height: auto; border-radius: 5px;">
                                 </div>
                             @endif
                             <input type="file" name="gambar_motor" class="form-control" id="gambar_motor" accept="image/*">
-                            <div class="form-text">Biarkan kosong jika tidak ingin mengganti gambar. Format: jpeg, png, jpg, webp. Maksimal 2MB.</div>
+                            <div class="form-text">Biarkan kosong jika tidak ingin mengganti gambar. Format: jpeg, png, jpg,
+                                webp. Maksimal 2MB.</div>
                             @error('gambar_motor')
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
