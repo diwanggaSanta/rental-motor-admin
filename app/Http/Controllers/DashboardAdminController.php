@@ -21,6 +21,10 @@ class DashboardAdminController extends Controller
         // Hitung total pendapatan dari transaksi yang sudah sukses/berjalan
         $totalPendapatan = tb_transaksi::whereIn('status_transaksi', ['berjalan', 'selesai'])->sum('total_bayar');
 
+        // Statistik Tambahan untuk Rekap Penjualan
+        $totalTransaksiSelesai = tb_transaksi::where('status_transaksi', 'selesai')->count();
+        $totalTransaksiBatal = tb_transaksi::where('status_transaksi', 'batal')->count();
+        
         // 2. Ambil 5 Transaksi Terakhir untuk tabel aktivitas
         // Asumsi relasi 'customer' dan 'motor' sudah ada di model tb_transaksi
         $transaksiTerbaru = tb_transaksi::with('motor')->orderBy('created_at', 'desc')
@@ -33,7 +37,9 @@ class DashboardAdminController extends Controller
             'motorDisewa', 
             'totalPelanggan', 
             'totalPendapatan',
-            'transaksiTerbaru'
+            'transaksiTerbaru',
+            'totalTransaksiSelesai',
+            'totalTransaksiBatal'
         ));
     }
 }

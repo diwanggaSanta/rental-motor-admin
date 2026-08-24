@@ -148,5 +148,18 @@
                 </table>
             </div>
         </div>
+        </div>
+
+        <!-- Shortcut Rekap Penjualan -->
+        <div class="row mt-2 mb-4">
+            <div class="col-12 text-end">
+                <a href="/rekap-penjualan" class="btn btn-primary fw-bold shadow-sm px-4 py-2">
+                    <svg class="bi me-2" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    Lihat Rekap Penjualan
+                </a>
+            </div>
+        </div>
     </div>
 @endsection

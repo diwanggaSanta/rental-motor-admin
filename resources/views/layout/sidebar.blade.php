@@ -5,12 +5,12 @@
         aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand fw-bold text-dark m-0" href="/">Rental Motor Jaya</a>
+      <a class="navbar-brand fw-bold text-dark m-0" href="/dashboard">Rental Motor Jaya</a>
     </div>
 
     <div class="d-flex align-items-center gap-3 ms-auto">
       <span class="text-muted small d-none d-md-inline">
-        Halo, <strong class="text-dark">{{ Auth::user()->name ?? 'Admin Testing' }}</strong>
+        Halo, <strong class="text-dark">{{ Auth::user()->name ?? 'Admin' }}</strong>
       </span>
       <form method="POST" action="/logout" class="d-flex m-0">
         @csrf
@@ -25,7 +25,7 @@
         <div class="d-flex flex-column">
           <h5 class="offcanvas-title fw-bold text-dark mb-1" id="offcanvasNavbarLabel">Menu Utama</h5>
           <span class="text-muted small d-md-none">
-            Login sebagai: <strong>{{ Auth::user()->name ?? 'Admin Testing' }}</strong>
+            Login sebagai: <strong>{{ Auth::user()->name ?? 'Admin' }}</strong>
           </span>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -33,7 +33,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Beranda</a>
+            <a class="nav-link active" aria-current="page" href="/dashboard">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/customer">Customer</a>
@@ -45,13 +45,12 @@
             <a class="nav-link" href="/motor">Motor</a>
           </li>
           <li class="nav-item">
+            <hr class="dropdown-divider my-2">
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/transaksi">Transaksi</a>
           </li>
         </ul>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </div>

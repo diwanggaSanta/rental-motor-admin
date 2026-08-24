@@ -4,11 +4,10 @@
     <div class="card mb-4">
         <div class="card-body d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="card-title mb-1">Daftar Badge Kategori</h2>
-                <p class="text-muted mb-0 small">Badge ini digunakan sebagai label kategori motor (contoh: Automatic,
-                    Off-Road, Sport).</p>
+                <h2 class="card-title mb-1">Daftar Kategori</h2>
+                <p class="text-muted mb-0 small">Untuk mengkategorikan motor yang akan ditambahkan</p>
             </div>
-            <a href="/kategori/create" class="btn btn-success">Tambah Badge</a>
+            <a href="/kategori/create" class="btn btn-success">Tambah Kategori</a>
         </div>
     </div>
 
