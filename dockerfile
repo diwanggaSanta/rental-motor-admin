@@ -1,5 +1,5 @@
 # Menggunakan image resmi PHP 8.2 dengan server Apache
-FROM php:8.2-apache
+FROM php:8.4-apache
 
 # Menginstall ekstensi sistem yang dibutuhkan (termasuk untuk PostgreSQL)
 RUN apt-get update && apt-get install -y \
