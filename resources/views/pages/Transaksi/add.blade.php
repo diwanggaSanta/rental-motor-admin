@@ -2,14 +2,12 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header bg-primary text-white">Tambah Data Transaksi Baru</div>
+        <div class="card-header bg-primary text-white fw-semibold">Tambah Data Transaksi Baru</div>
         <div class="card-body">
             <form action="/transaksi" method="POST">
                 @csrf
-                <div class="row mt-3">
-                    
-                    {{-- Kolom Kiri: Customer & Tanggal Mulai --}}
-                    <div class="col-sm-6">
+                <div class="row g-3 mt-1">
+                    <div class="col-12 col-md-6">
                         <div class="mb-4">
                             <label for="customer_id" class="form-label fw-bold">Pilih Customer</label>
                             <select class="form-select" name="customer_id" id="customer_id">
@@ -34,8 +32,7 @@
                         </div>
                     </div>
 
-                    {{-- Kolom Kanan: Motor & Durasi (Diperbarui dengan Tipe Sewa) --}}
-                    <div class="col-sm-6">
+                    <div class="col-12 col-md-6">
                         <div class="mb-4">
                             <label for="motor_id" class="form-label fw-bold">Pilih Motor (Hanya yang Tersedia)</label>
                             <select class="form-select" name="motor_id" id="motor_id">
@@ -52,18 +49,16 @@
                             <div class="form-text text-muted">Motor yang berstatus "disewa" otomatis disembunyikan.</div>
                         </div>
 
-                        <div class="row">
-                            <!-- Dropdown Tipe Sewa (Baru) -->
-                            <div class="col-md-6 mb-4">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="tipe_durasi" class="form-label fw-bold">Tipe Sewa</label>
                                 <select class="form-select" name="tipe_durasi" id="tipe_durasi">
                                     <option value="hari" {{ old('tipe_durasi') == 'hari' ? 'selected' : '' }}>Harian</option>
                                     <option value="bulan" {{ old('tipe_durasi') == 'bulan' ? 'selected' : '' }}>Bulanan (Diskon)</option>
                                 </select>
                             </div>
-                            
-                            <!-- Input Angka Durasi -->
-                            <div class="col-md-6 mb-4">
+
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="durasi" class="form-label fw-bold">Durasi (Angka)</label>
                                 <input type="number" name="durasi" class="form-control" placeholder="Contoh: 2" value="{{ old('durasi') }}" min="1">
                                 @error('durasi')
@@ -74,9 +69,9 @@
                     </div>
                 </div>
 
-                <div class="border-top pt-3 mt-2">
+                <div class="border-top pt-3 mt-2 d-flex flex-column flex-sm-row gap-2">
                     <button type="submit" class="btn btn-primary px-4">Simpan Transaksi</button>
-                    <a href="/transaksi" class="btn btn-secondary ms-2 px-4">Batal</a>
+                    <a href="/transaksi" class="btn btn-secondary px-4">Batal</a>
                 </div>
             </form>
         </div>

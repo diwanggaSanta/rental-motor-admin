@@ -2,13 +2,12 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">Tambah Data Motor</div>
+        <div class="card-header fw-semibold">Tambah Data Motor</div>
         <div class="card-body">
             <form action="/motor" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="row">
-                    {{-- Kolom Kiri: Nama Motor, Plat Nomor, Tahun, Harga, CC Mesin, KM Terakhir --}}
-                    <div class="col-sm-6">
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
                         <div class="mb-3">
                             <label for="nama_motor" class="form-label">Nama Motor</label>
                             <input type="text" name="nama_motor" class="form-control" placeholder="Contoh: Honda Vario 160"
@@ -78,13 +77,9 @@
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
-
                     </div>
 
-                    {{-- Kolom Kanan: Kategori Badge, Tag Tambahan, Status, Gambar --}}
-                    <div class="col-sm-6">
-
+                    <div class="col-12 col-md-6">
                         <div class="mb-3">
                             <label for="km_terakhir" class="form-label">KM Terakhir</label>
                             <input type="number" name="km_terakhir" class="form-control" placeholder="Contoh: 10000"
@@ -109,8 +104,7 @@
                             <select class="form-select" name="status" id="status">
                                 <option value="tersedia" {{ old('status') == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
                                 <option value="disewa" {{ old('status') == 'disewa' ? 'selected' : '' }}>Disewa</option>
-                                <option value="servis" {{ old('status') == 'servis' ? 'selected' : '' }}>Servis / Maintenance
-                                </option>
+                                <option value="servis" {{ old('status') == 'servis' ? 'selected' : '' }}>Servis / Maintenance</option>
                             </select>
                             @error('status')
                                 <div class="form-text text-danger">{{ $message }}</div>
@@ -128,8 +122,7 @@
                     </div>
                 </div>
 
-                {{-- Deskripsi full width --}}
-                <div class="mb-3">
+                <div class="mb-3 mt-3">
                     <label for="deskripsi" class="form-label">Deskripsi / Spesifikasi Lainnya</label>
                     <textarea class="form-control" name="deskripsi" id="deskripsi" style="height: 100px; resize: none;"
                         placeholder="Masukkan deskripsi atau spesifikasi motor...">{{ old('deskripsi') }}</textarea>
@@ -138,9 +131,9 @@
                     @enderror
                 </div>
 
-                <div style="margin-top: 15px;">
+                <div class="mt-3 d-flex flex-column flex-sm-row gap-2">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="/motor" class="btn btn-secondary ms-2">Batal</a>
+                    <a href="/motor" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
         </div>

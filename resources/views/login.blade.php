@@ -128,6 +128,25 @@
       background-color: #333333; /* Hitam sedikit lebih terang saat di-hover */
       color: #ffffff;
     }
+
+    @media (max-width: 576px) {
+      body {
+        padding: 1.25rem;
+      }
+
+      .brand-title {
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .login-card {
+        padding: 1.5rem 1rem;
+      }
+
+      .login-header h1 {
+        font-size: 1.4rem;
+      }
+    }
   </style>
 </head>
 <body>

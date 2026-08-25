@@ -1,20 +1,20 @@
-<nav class="navbar bg-body-tertiary fixed-top border-bottom">
+<nav class="navbar bg-body-tertiary fixed-top border-bottom shadow-sm">
   <div class="container-fluid px-3 px-md-4">
-    <div class="d-flex align-items-center">
-      <button class="navbar-toggler me-3 shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+    <div class="d-flex align-items-center flex-grow-1 min-width-0">
+      <button class="navbar-toggler me-2 me-md-3 shadow-none border-0 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand fw-bold text-dark m-0" href="/dashboard">Rental Motor Jaya</a>
+      <a class="navbar-brand fw-bold text-dark m-0 text-truncate" href="/dashboard">Rental Motor Jaya</a>
     </div>
 
-    <div class="d-flex align-items-center gap-3 ms-auto">
-      <span class="text-muted small d-none d-md-inline">
+    <div class="d-flex align-items-center gap-2 gap-md-3 ms-auto">
+      <span class="text-muted small d-none d-md-inline text-truncate">
         Halo, <strong class="text-dark">{{ Auth::user()->name ?? 'Admin' }}</strong>
       </span>
       <form method="POST" action="/logout" class="d-flex m-0">
         @csrf
-        <button class="btn btn-outline-danger btn-sm fw-bold px-3" type="submit">
+        <button class="btn btn-outline-danger btn-sm fw-bold px-2 px-md-3" type="submit">
           Logout
         </button>
       </form>

@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
             <div>
                 <h2 class="card-title mb-1 fw-bold">Rekap Transaksi Bulanan</h2>
                 <p class="text-muted mb-0 small">Menampilkan data penjualan bulanan berdasarkan transaksi yang sukses.</p>
             </div>
-            <div>
-                <a href="/transaksi" class="btn btn-outline-secondary me-2">Kembali ke Transaksi</a>
+            <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
+                <a href="/transaksi" class="btn btn-outline-secondary">Kembali ke Transaksi</a>
                 <a href="/dashboard" class="btn btn-outline-primary">Ke Dashboard</a>
             </div>
         </div>

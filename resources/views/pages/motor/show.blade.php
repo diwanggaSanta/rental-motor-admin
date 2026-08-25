@@ -13,52 +13,56 @@
     </div>
   @endif
   <div class="card">
-    <table class="table table-striped-columns">
-      <thead>
-        <tr class="text-center">
-          <th scope="col" class="bg-primary text-white">ID Motor</th>
-          <th scope="col" class="bg-primary text-white">Nama Motor</th>
-          <th scope="col" class="bg-primary text-white">Kategori</th>
-          <th scope="col" class="bg-primary text-white">Warna Motor</th>
-          <th scope="col" class="bg-primary text-white">Plat Nomor</th>
-          <th scope="col" class="bg-primary text-white">Tahun Motor</th>
-          <th scope="col" class="bg-primary text-white">CC Mesin</th>
-          <th scope="col" class="bg-primary text-white">KM Terakhir</th>
-          <th scope="col" class="bg-primary text-white">Harga Sewa</th>
-          <th scope="col" class="bg-primary text-white">Status</th>
-          <th scope="col" class="bg-primary text-white">aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        @forelse ($data_motor as $item)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $item->nama_motor }}</td>
-            <td>{{ $item->kategori->nama_kategori ?? '-' }}</td>
-            <td>{{ $item->warna ?? '-' }}</td>
-            <td>{{ $item->plat_nomor ?? '-' }}</td>
-            <td>{{ $item->tahun }}</td>
-            <td>{{ $item->cc_mesin }}</td>
-            <td>{{ $item->km_terakhir }}</td>
-          <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-            <td>{{ $item->status}}</td>
-            <td class="d-flex gap-2">
-              <a href="{{ route('motor.edit', $item->id_motor) }}" class="btn btn-warning">Edit</a>
-              <a href="{{ route('motor.show', $item->id_motor) }}" class="btn btn-primary">Detail</a>
-              <form action="/motor/{{ $item->id_motor }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger"
-                  onclick="return confirm('Apakah Anda yakin ingin menghapus data?')">Hapus</button>
-              </form>
-            </td>
+    <div class="table-responsive">
+      <table class="table table-striped-columns">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" class="bg-primary text-white">ID Motor</th>
+            <th scope="col" class="bg-primary text-white">Nama Motor</th>
+            <th scope="col" class="bg-primary text-white">Kategori</th>
+            <th scope="col" class="bg-primary text-white">Warna Motor</th>
+            <th scope="col" class="bg-primary text-white">Plat Nomor</th>
+            <th scope="col" class="bg-primary text-white">Tahun Motor</th>
+            <th scope="col" class="bg-primary text-white">CC Mesin</th>
+            <th scope="col" class="bg-primary text-white">KM Terakhir</th>
+            <th scope="col" class="bg-primary text-white">Harga Sewa</th>
+            <th scope="col" class="bg-primary text-white">Status</th>
+            <th scope="col" class="bg-primary text-white">Aksi</th>
           </tr>
-        @empty
-          <tr>
-            <td colspan="7" class="text-center">Tidak ada data</td>
-          </tr>
-        @endforelse
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @forelse ($data_motor as $item)
+            <tr>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $item->nama_motor }}</td>
+              <td>{{ $item->kategori->nama_kategori ?? '-' }}</td>
+              <td>{{ $item->warna ?? '-' }}</td>
+              <td>{{ $item->plat_nomor ?? '-' }}</td>
+              <td>{{ $item->tahun }}</td>
+              <td>{{ $item->cc_mesin }}</td>
+              <td>{{ $item->km_terakhir }}</td>
+              <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+              <td>{{ $item->status}}</td>
+              <td>
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                  <a href="{{ route('motor.edit', $item->id_motor) }}" class="btn btn-warning btn-sm">Edit</a>
+                  <a href="{{ route('motor.show', $item->id_motor) }}" class="btn btn-primary btn-sm">Detail</a>
+                  <form action="/motor/{{ $item->id_motor }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm"
+                      onclick="return confirm('Apakah Anda yakin ingin menghapus data?')">Hapus</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="11" class="text-center">Tidak ada data</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
   </div>
 @endsection

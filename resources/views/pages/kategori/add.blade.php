@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">Tambah Kategori</div>
+        <div class="card-header fw-semibold">Tambah Kategori</div>
         <div class="card-body">
             <form action="/kategori" method="POST">
                 @csrf
@@ -15,9 +15,9 @@
                     @enderror
                 </div>
 
-                <div style="margin-top: 10px;">
+                <div class="mt-3 d-flex flex-column flex-sm-row gap-2">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="/kategori" class="btn btn-secondary ms-2">Batal</a>
+                    <a href="/kategori" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
         </div>

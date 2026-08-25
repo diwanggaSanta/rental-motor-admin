@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             {{-- Header --}}
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-4">
                 <div>
                     <h2 class="fw-bold mb-1">Detail Motor</h2>
                     <nav aria-label="breadcrumb">
@@ -15,7 +15,7 @@
                         </ol>
                     </nav>
                 </div>
-                <div>
+                <div class="d-flex gap-2">
                     <a href="/motor/{{ $data_motor->id_motor }}/edit" class="btn btn-outline-warning btn-sm me-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">

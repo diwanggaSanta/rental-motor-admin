@@ -20,16 +20,15 @@
 
 <div class="invoice-box">
     <!-- Header Invoice -->
-    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-3 mb-4 gap-3">
         <div>
             <h2 class="mb-0">Rental Motor Diwangga</h2>
             <p class="text-muted mb-0">Jl. Contoh Alamat No. 123, Bali</p>
         </div>
-        <div class="text-end">
+        <div class="text-md-end">
             <h1 class="text-primary mb-0">INVOICE</h1>
             <p class="mb-0"><strong>ID:</strong> #TRX-{{ str_pad($transaksi->id_transaksi, 4, '0', STR_PAD_LEFT) }}</p>
             <p class="mb-0"><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($transaksi->created_at)->format('d F Y') }}</p>
-            <!-- Tambahan Stempel Status -->
             <div class="mt-2">
                 @if($transaksi->status_transaksi == 'selesai')
                     <span class="badge bg-success" style="font-size: 1rem;">STATUS: SELESAI (LUNAS)</span>
@@ -41,14 +40,14 @@
     </div>
 
     <!-- Data Customer & Waktu Sewa -->
-    <div class="row mb-4">
-        <div class="col-sm-6">
+    <div class="row mb-4 g-3">
+        <div class="col-12 col-md-6">
             <h5 class="text-muted">Disewa Oleh:</h5>
             <strong>{{ $transaksi->customer->nama }}</strong><br>
             {{ $transaksi->customer->alamat }}<br>
             Telp: {{ $transaksi->customer->no_telp }}
         </div>
-        <div class="col-sm-6 text-end">
+        <div class="col-12 col-md-6 text-md-end">
             <h5 class="text-muted">Periode Sewa:</h5>
             Mulai: {{ \Carbon\Carbon::parse($transaksi->tgl_mulai)->format('d/m/Y') }}<br>
             Selesai: {{ \Carbon\Carbon::parse($transaksi->tgl_selesai)->format('d/m/Y') }}<br>

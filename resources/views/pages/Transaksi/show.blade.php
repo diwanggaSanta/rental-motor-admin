@@ -2,10 +2,10 @@
 
 @section('content')
   <div class="card mb-4">
-    <div class="card-body d-flex justify-content-between align-items-center">
+    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
       <h2 class="card-title mb-0">Daftar Transaksi</h2>
-      <div>
-        <a href="/rekap-penjualan" class="btn btn-primary me-2">Lihat Rekap</a>
+      <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-end gap-2 w-100 w-md-auto">
+        <a href="/rekap-penjualan" class="btn btn-primary">Lihat Rekap</a>
         <a href="/transaksi/create" class="btn btn-success">Tambah Transaksi</a>
       </div>
     </div>

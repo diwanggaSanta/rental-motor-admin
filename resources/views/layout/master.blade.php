@@ -18,9 +18,11 @@
     {{--navbar--}}
     @include('layout.sidebar')
     {{-- content --}}
-    <div class="container mt-3 mb-4 flex-grow-1">
-        @yield('content')
-    </div>
+    <main class="container-fluid px-2 px-md-3 px-lg-4 mt-3 mb-4 flex-grow-1">
+        <div class="w-100">
+            @yield('content')
+        </div>
+    </main>
 
     {{-- footer --}}
     @include('layout.footer')
