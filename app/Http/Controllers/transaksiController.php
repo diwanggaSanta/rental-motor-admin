@@ -20,7 +20,7 @@ class transaksiController extends Controller
     {
         $data_transaksi = tb_transaksi::with(['customer', 'motor'])->get();
 
-        return view('pages.transaksi.show', compact('data_transaksi'));
+        return view('pages.Transaksi.show', compact('data_transaksi'));
     }
 
     /**
@@ -39,7 +39,7 @@ class transaksiController extends Controller
             return tb_motor::where('status', 'tersedia')->get();
         });
 
-        return view('pages.transaksi.add', compact('data_customer', 'data_motor'));
+        return view('pages.Transaksi.add', compact('data_customer', 'data_motor'));
     }
 
     public function store(Request $request)
@@ -158,7 +158,7 @@ class transaksiController extends Controller
     public function invoice(string $id)
     {
         $transaksi = tb_transaksi::with(['customer', 'motor'])->findOrFail($id);
-        return view('pages.transaksi.invoice', compact('transaksi'));
+        return view('pages.Transaksi.invoice', compact('transaksi'));
     }
 
     /**
