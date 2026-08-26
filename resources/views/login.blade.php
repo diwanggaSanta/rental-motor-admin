@@ -135,8 +135,7 @@
 
       /* Sesuaikan ukuran logo untuk layar HP */
       .brand-logo {
-        width: 200px;
-        height: 200px;
+        max-width: 100px;
         margin-bottom: 1.25rem;
       }
 
