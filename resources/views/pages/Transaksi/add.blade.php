@@ -39,7 +39,7 @@
                                 <option value="">-- Silakan Pilih Motor --</option>
                                 @foreach($data_motor as $motor)
                                     <option value="{{ $motor->id_motor }}" {{ old('motor_id') == $motor->id_motor ? 'selected' : '' }}>
-                                        {{ $motor->nama_motor }} | Rp {{ number_format($motor->harga, 0, ',', '.') }} / hari
+                                        {{ $motor->nama_motor }}
                                     </option>
                                 @endforeach
                             </select>
@@ -53,8 +53,8 @@
                             <div class="col-12 col-md-6 mb-4">
                                 <label for="tipe_durasi" class="form-label fw-bold">Tipe Sewa</label>
                                 <select class="form-select" name="tipe_durasi" id="tipe_durasi">
-                                    <option value="hari" {{ old('tipe_durasi') == 'hari' ? 'selected' : '' }}>Harian</option>
-                                    <option value="bulan" {{ old('tipe_durasi') == 'bulan' ? 'selected' : '' }}>Bulanan (Diskon)</option>
+                                    <option value="hari" {{ old('tipe_durasi') == 'hari' ? 'selected' : '' }}>Hari</option>
+                                    <option value="bulan" {{ old('tipe_durasi') == 'bulan' ? 'selected' : '' }}>Bulan</option>
                                 </select>
                             </div>
 
@@ -65,6 +65,14 @@
                                     <div class="form-text text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="total_bayar" class="form-label fw-bold">Total Bayar (Rp)</label>
+                            <input type="number" name="total_bayar" class="form-control" placeholder="Masukkan jumlah yang harus dibayar customer" value="{{ old('total_bayar') }}" min="0" step="1">
+                            @error('total_bayar')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text text-muted">Masukkan total harga yang disepakati.</div>
                         </div>
                     </div>
                 </div>

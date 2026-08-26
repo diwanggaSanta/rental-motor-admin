@@ -47,11 +47,14 @@
             {{ $transaksi->customer->alamat }}<br>
             Telp: {{ $transaksi->customer->no_telp }}
         </div>
-        <div class="col-12 col-md-6 text-md-end">
+            <div class="col-12 col-md-6 text-md-end">
             <h5 class="text-muted">Periode Sewa:</h5>
             Mulai: {{ \Carbon\Carbon::parse($transaksi->tgl_mulai)->format('d/m/Y') }}<br>
             Selesai: {{ \Carbon\Carbon::parse($transaksi->tgl_selesai)->format('d/m/Y') }}<br>
-            <strong>Durasi: {{ $transaksi->durasi }} Hari</strong>
+            @php
+                $unit = ($transaksi->tipe_durasi ?? 'hari') === 'bulan' ? 'Bulan' : 'Hari';
+            @endphp
+            <strong>Durasi: {{ $transaksi->durasi }} {{ $unit }}</strong>
         </div>
     </div>
 
@@ -72,7 +75,7 @@
                     <small class="text-muted">Tahun: {{ $transaksi->motor->tahun }}</small>
                 </td>
                 <td>Rp {{ number_format($transaksi->harga_sewa, 0, ',', '.') }}</td>
-                <td>{{ $transaksi->durasi }} Hari</td>
+                <td>{{ $transaksi->durasi }} {{ $unit }}</td>
                 <!-- Hapus perkalian, panggil langsung total_bayar dari database -->
                 <td>Rp {{ number_format($transaksi->total_bayar, 0, ',', '.') }}</td>
             </tr>

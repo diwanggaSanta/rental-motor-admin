@@ -178,7 +178,7 @@
                                     @if($data_motor->km_terakhir)
                                         <span class="badge rounded-pill border border-secondary text-secondary fw-normal px-3 py-2"
                                             style="font-size: 0.8rem; background: transparent;">
-                                            {{ $data_motor->km_terakhir }}
+                                            {{ number_format($data_motor->km_terakhir, 0, ',', '.') }} km
                                         </span>
                                     @endif
                                     @if($data_motor->tag_tambahan)

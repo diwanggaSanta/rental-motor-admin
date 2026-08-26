@@ -50,38 +50,23 @@ class transaksiController extends Controller
             'tipe_durasi' => 'required|in:hari,bulan',
             'durasi' => 'required|numeric|min:1',
             'tgl_mulai' => 'required|date',
+            'total_bayar' => 'required|numeric|min:0',
         ]);
 
+        // Ambil motor untuk memastikan ada, namun harga tidak dihitung otomatis
         $motor = tb_motor::findOrFail($request->motor_id);
 
-        $harga_harian = $motor->harga;
-        $total_bayar = 0;
+        $total_bayar = (float) $request->total_bayar;
         $harga_sewa_tercatat = 0;
 
         if ($request->tipe_durasi == 'hari') {
-            $harga_sewa_tercatat = $harga_harian;
-            $total_bayar = $harga_harian * $request->durasi;
             $tgl_selesai = Carbon::parse($request->tgl_mulai)->addDays((int) $request->durasi);
             $durasi_simpan = $request->durasi;
+            $harga_sewa_tercatat = $durasi_simpan > 0 ? ($total_bayar / $durasi_simpan) : 0;
         } else {
-            // Promo 1 bulan setara 15 hari
-            $total_sementara = ($harga_harian * 15) * $request->durasi;
-
-            // Diskon kelipatan
-            $diskon = 0;
-            if ($request->durasi >= 18) {
-                $diskon = 0.20;
-            } elseif ($request->durasi >= 12) {
-                $diskon = 0.15;
-            } elseif ($request->durasi >= 6) {
-                $diskon = 0.10;
-            }
-
-            $total_bayar = $total_sementara - ($total_sementara * $diskon);
-            $harga_sewa_tercatat = $total_bayar / $request->durasi;
-
             $tgl_selesai = Carbon::parse($request->tgl_mulai)->addMonths((int) $request->durasi);
             $durasi_simpan = $request->durasi * 30; // Konversi ke hari
+            $harga_sewa_tercatat = $durasi_simpan > 0 ? ($total_bayar / $durasi_simpan) : 0;
         }
 
         tb_transaksi::create([
@@ -165,15 +150,26 @@ class transaksiController extends Controller
      * Tandai transaksi sebagai selesai dan kembalikan motor.
      * Menggunakan relasi motor() untuk mengurangi query.
      */
-    public function selesai(string $id)
+    public function selesai(Request $request, string $id)
     {
-        // Eager load relasi motor agar hanya 1 query (bukan 2 terpisah)
+        // Validasi optional km_terakhir jika dikirim
+        $request->validate([
+            'km_terakhir' => 'nullable|numeric|min:0',
+        ]);
+
+        // Eager load relasi motor agar hanya 1 query
         $transaksi = tb_transaksi::with('motor')->findOrFail($id);
+
+        // Tandai transaksi selesai
         $transaksi->update(['status_transaksi' => 'selesai']);
 
-        // Kembalikan status motor via relasi
+        // Jika ada relasi motor, update status dan km_terakhir jika disediakan
         if ($transaksi->motor) {
-            $transaksi->motor->update(['status' => 'tersedia']);
+            $update = ['status' => 'tersedia'];
+            if ($request->filled('km_terakhir')) {
+                $update['km_terakhir'] = (int) $request->km_terakhir;
+            }
+            $transaksi->motor->update($update);
         }
 
         // Hapus cache karena status motor berubah

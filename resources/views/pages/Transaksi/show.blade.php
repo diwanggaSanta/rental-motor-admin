@@ -27,8 +27,8 @@
               <th scope="col" class="bg-primary text-white">Nama Motor</th>
               <th scope="col" class="bg-primary text-white">Warna Motor</th>
               <th scope="col" class="bg-primary text-white">Plat Motor</th>
-              <th scope="col" class="bg-primary text-white">Harga Sewa</th>
-              <th scope="col" class="bg-primary text-white">Durasi (Hari)</th>
+              <th scope="col" class="bg-primary text-white">Durasi(Hari)</th>
+              
               <th scope="col" class="bg-primary text-white">Mulai</th>
               <th scope="col" class="bg-primary text-white">Selesai</th>
               <th scope="col" class="bg-primary text-white">Total Bayar</th>
@@ -45,8 +45,8 @@
               <td>{{ $item->motor->nama_motor ?? '-' }}</td>
               <td>{{ $item->motor->warna ?? '-' }}</td>
               <td>{{ $item->motor->plat_nomor ?? '-' }}</td>
-              <td>Rp {{ number_format($item->harga_sewa, 0, ',', '.') }}</td>
-              <td>{{ $item->durasi }}</td>
+              <td>{{ $item->durasi }} </td>
+              
               <td>{{ \Carbon\Carbon::parse($item->tgl_mulai)->format('d/m/Y') }}</td>
               <td>{{ \Carbon\Carbon::parse($item->tgl_selesai)->format('d/m/Y') }}</td>
               <td>Rp {{ number_format($item->total_bayar, 0, ',', '.') }}</td>
@@ -66,11 +66,7 @@
                 
                 <!-- Tombol Selesaikan (Hanya Muncul Jika Status Berjalan) -->
                 @if($item->status_transaksi == 'berjalan')
-                    <form action="{{ route('transaksi.selesai', $item->id_transaksi) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Tandai transaksi selesai? Motor akan otomatis kembali berstatus Tersedia.')">Selesaikan</button>
-                    </form>
+                  <button type="button" class="btn btn-success btn-sm" onclick="openSelesaiModal({{ $item->id_transaksi }}, {{ $item->motor->km_terakhir ?? 'null' }})">Selesaikan</button>
                 @endif
                 
                 <!-- Tombol Hapus -->
@@ -91,4 +87,44 @@
         </table>
     </div>
   </div>
+  
+  <!-- Modal: Input KM saat menyelesaikan transaksi -->
+  <div class="modal fade" id="selesaiModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Input KM Akhir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="selesaiForm" method="POST">
+          @csrf
+          @method('PATCH')
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="km_terakhir_input" class="form-label">KM Terakhir</label>
+              <input type="number" step="1" min="0" class="form-control" id="km_terakhir_input" name="km_terakhir" placeholder="Masukkan KM terakhir motor setelah disewa">
+              <div class="form-text">Biarkan kosong jika tidak ingin mengubah nilai KM.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan & Selesaikan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  @push('scripts')
+  <script>
+    function openSelesaiModal(transaksiId, currentKm) {
+      const form = document.getElementById('selesaiForm');
+      form.action = '/transaksi/' + transaksiId + '/selesai';
+      const kmInput = document.getElementById('km_terakhir_input');
+      kmInput.value = currentKm && currentKm !== null ? currentKm : '';
+      var selesaiModal = new bootstrap.Modal(document.getElementById('selesaiModal'));
+      selesaiModal.show();
+    }
+  </script>
+  @endpush
 @endsection

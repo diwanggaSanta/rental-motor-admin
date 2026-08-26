@@ -25,7 +25,6 @@
             <th scope="col" class="bg-primary text-white">Tahun Motor</th>
             <th scope="col" class="bg-primary text-white">CC Mesin</th>
             <th scope="col" class="bg-primary text-white">KM Terakhir</th>
-            <th scope="col" class="bg-primary text-white">Harga Sewa</th>
             <th scope="col" class="bg-primary text-white">Status</th>
             <th scope="col" class="bg-primary text-white">Aksi</th>
           </tr>
@@ -40,8 +39,8 @@
               <td>{{ $item->plat_nomor ?? '-' }}</td>
               <td>{{ $item->tahun }}</td>
               <td>{{ $item->cc_mesin }}</td>
-              <td>{{ $item->km_terakhir }}</td>
-              <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+              <td>{{ $item->km_terakhir ? number_format($item->km_terakhir, 0, ',', '.') . ' km' : '-' }}</td>
+              
               <td>{{ $item->status}}</td>
               <td>
                 <div class="d-flex flex-column flex-sm-row gap-2">

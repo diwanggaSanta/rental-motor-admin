@@ -68,6 +68,11 @@
                             @enderror
                         </div>
 
+                        
+                    </div>
+
+                    <div class="col-12 col-md-6">
+
                         <div class="mb-3">
                             <label for="cc_mesin" class="form-label">CC Mesin</label>
                             <input type="text" name="cc_mesin" class="form-control" placeholder="Contoh: 160cc"
@@ -77,9 +82,7 @@
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="col-12 col-md-6">
                         <div class="mb-3">
                             <label for="km_terakhir" class="form-label">KM Terakhir</label>
                             <input type="number" name="km_terakhir" class="form-control" placeholder="Contoh: 10000"
@@ -90,14 +93,7 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="harga" class="form-label">Harga Sewa (Rp)</label>
-                            <input type="number" name="harga" class="form-control" placeholder="Contoh: 150000"
-                                value="{{ old('harga') }}">
-                            @error('harga')
-                                <div class="form-text text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <!-- Harga Sewa dihilangkan; admin akan memasukkan harga saat membuat transaksi -->
 
                         <div class="mb-3">
                             <label for="status" class="form-label">Status Motor</label>
