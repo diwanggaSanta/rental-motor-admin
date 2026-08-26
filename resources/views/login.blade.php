@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login - Bali Ride</title>
+  <title>Admin Login - RS Rent</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Reset CSS dasar */
@@ -23,14 +23,13 @@
       align-items: center;
     }
 
-    .brand-title {
-      color: #000000; /* Warna hitam standar */
-      font-weight: 800;
-      letter-spacing: 1px;
+    /* CSS baru untuk logo */
+    .brand-logo {
+      max-width: 120px; /* Atur ukuran maksimal logo di sini */
+      height: auto;
       margin-bottom: 2rem;
-      font-size: 2.2rem;
-      text-transform: uppercase;
-      text-align: center;
+      border-radius: 12px; /* Opsional: memberikan efek membulat pada sudut gambar */
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Opsional: memberikan sedikit bayangan */
     }
 
     .login-card {
@@ -134,8 +133,10 @@
         padding: 1.25rem;
       }
 
-      .brand-title {
-        font-size: 1.6rem;
+      /* Sesuaikan ukuran logo untuk layar HP */
+      .brand-logo {
+        width: 200px;
+        height: 200px;
         margin-bottom: 1.25rem;
       }
 
@@ -151,7 +152,8 @@
 </head>
 <body>
   
-  <h1 class="brand-title">BALI RIDE</h1>
+  <!-- Menggunakan logo yang sama dengan yang ada di navbar -->
+  <img src="{{ asset('icon/icon_RS_RENT.jpg') }}" alt="Logo RS RENT" class="brand-logo">
   
   <div class="login-card">
     <div class="login-header">

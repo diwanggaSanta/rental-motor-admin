@@ -5,7 +5,11 @@
         aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand fw-bold text-dark m-0 text-truncate" href="/dashboard">Rental Motor Jaya</a>
+      
+      <a class="navbar-brand fw-bold text-dark m-0 text-truncate d-flex align-items-center" href="/dashboard">
+        <img src="{{ asset('icon/icon_RS_RENT.jpg') }}" alt="Logo Rental" width="60" height="60" class="me-2 object-fit-contain">
+        RS RENT
+      </a>
     </div>
 
     <div class="d-flex align-items-center gap-2 gap-md-3 ms-auto">
@@ -44,9 +48,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/motor">Motor</a>
           </li>
-          <li class="nav-item">
-            <hr class="dropdown-divider my-2">
+          
+          <!-- Bagian garis pembatas yang diperjelas -->
+          <li class="nav-item w-100">
+            <hr class="my-2 text-secondary opacity-25">
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="/transaksi">Transaksi</a>
           </li>
