@@ -24,7 +24,9 @@
             <tr class="text-center">
               <th scope="col" class="bg-primary text-white">No</th>
               <th scope="col" class="bg-primary text-white">Customer</th>
-              <th scope="col" class="bg-primary text-white">Motor</th>
+              <th scope="col" class="bg-primary text-white">Nama Motor</th>
+              <th scope="col" class="bg-primary text-white">Warna Motor</th>
+              <th scope="col" class="bg-primary text-white">Plat Motor</th>
               <th scope="col" class="bg-primary text-white">Harga Sewa</th>
               <th scope="col" class="bg-primary text-white">Durasi (Hari)</th>
               <th scope="col" class="bg-primary text-white">Mulai</th>
@@ -41,6 +43,8 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $item->customer->nama ?? '-' }}</td>
               <td>{{ $item->motor->nama_motor ?? '-' }}</td>
+              <td>{{ $item->motor->warna ?? '-' }}</td>
+              <td>{{ $item->motor->plat_nomor ?? '-' }}</td>
               <td>Rp {{ number_format($item->harga_sewa, 0, ',', '.') }}</td>
               <td>{{ $item->durasi }}</td>
               <td>{{ \Carbon\Carbon::parse($item->tgl_mulai)->format('d/m/Y') }}</td>

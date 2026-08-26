@@ -102,6 +102,8 @@
                         <tr>
                             <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Order ID</th>
                             <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Nama Motor</th>
+                            <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Warna Motor</th>
+                            <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Plat Motor</th>
                             <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Durasi Sewa</th>
                             <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Total Biaya</th>
                             <th class="px-4 py-3 text-muted small fw-bold text-uppercase border-0">Status</th>
@@ -114,7 +116,13 @@
                                     <span class="fw-bold text-dark">TRX-{{ $trx->id_transaksi }}</span>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <span class="fw-bold text-dark">{{ $trx->motor->nama_motor ?? 'Tidak ditemukan' }}</span>
+                                    <span class="fw-bold text-dark">{{ $trx->motor->nama_motor ?? '-' }}</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="fw-bold text-dark">{{ $trx->motor->warna ?? '-' }}</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="fw-bold text-dark">{{ $trx->motor->plat_nomor ?? '-' }}</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="fw-medium text-dark">{{ $trx->tgl_mulai }}</div>
